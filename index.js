@@ -10,7 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@emajohn.rc6mo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
 
 async function run() {
   try {
@@ -18,6 +22,7 @@ async function run() {
     const productCollection = client.db("emaJohn").collection("product");
 
     app.get("/product", async (req, res) => {
+      console.log("query", req.query);
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
 
